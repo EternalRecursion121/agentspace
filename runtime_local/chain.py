@@ -27,6 +27,8 @@ def main():
     root = Path(a.chain_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
     note = Path(a.first_note_file).read_text().strip() if a.first_note_file else ""
+    log = root / "chain.jsonl"
+    done = {json.loads(l)["round"] for l in log.read_text().splitlines() if l.strip()} if log.exists() else set()
     for k in range(1, a.rounds + 1):
         rd = root / f"round{k}"
         state = rd / "state.json"
@@ -38,7 +40,10 @@ def main():
             subprocess.run(cmd, check=True)
         st = json.loads(state.read_text())
         left = (st.get("handoff") or "").strip()
-        with (root / "chain.jsonl").open("a") as f:
+        if k in done:   # resumed chain: this round is already recorded
+            note = left
+            continue
+        with log.open("a") as f:
             f.write(json.dumps({"round": k, "seed": a.seed + k - 1, "note_in": note or None, "message_out": left,
                                 "ended": st.get("ended") or "cap", "turns": st.get("turn")}, ensure_ascii=False) + "\n")
         note = left
