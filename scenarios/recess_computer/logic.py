@@ -36,6 +36,8 @@ def assign_roles(n, params, rng):
 
 
 def fill_briefing(briefing, agent_id, ids_roles, params, rng):
+    if ids_roles[agent_id] == "player" and str(params.get("guide", "false")).lower() in ("1", "true", "yes", "on"):
+        return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + "\n"
     if ids_roles[agent_id] != "gm":
         return briefing
     world = NPC_DIR.parent
@@ -55,6 +57,17 @@ def _voice(params):
     text = NPC_VOICE.get(params.get("npc_voice", "woven"), "")
     return text + "\n" if text else ""   # woven: the briefing is byte-identical to the first runs
 
+
+# guide=true (suggested by computer-10 in interviews: explain how the world works, show its
+# places, let several things happen in one reply, give the player a notebook).
+GUIDE = ("How this world works: the narration marked WORLD is written by another AI, acting as the world. "
+         "The people you meet (Ottilie, Brann, Ines, Pell and Aud) are each played by their own AI and answer "
+         "what you say to them. You can do or say several things in one reply. The places are: the crossing, "
+         "with the Waystone and the signpost; Aud's stone-yard; Ottilie's house, her map room, and the lookout "
+         "behind it; the mere shore, the reed beds, and Tern Island across the water; the orchard and Ines's "
+         "cottage; the mill yard and the mill floor; the beech wood and the ring of beeches. You carry a small "
+         "blank notebook, and whatever you write in it stays with you. The game lasts up to {max_turns} turns; "
+         "you can end it sooner by leaving Fivefold.")
 
 NPC_VOICE = {
     "woven": "",

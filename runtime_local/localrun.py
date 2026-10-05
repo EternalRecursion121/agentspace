@@ -166,7 +166,7 @@ def main():
     ap.add_argument("--player", default="computer10", help="computer10 or an OpenRouter model id")
     ap.add_argument("--vllm-url", default="http://127.0.0.1:8003")
     ap.add_argument("--header", default=None, help="document header (default: the format's own)")
-    ap.add_argument("--format", default="user", choices=["user", "world_bold", "world_plain"],
+    ap.add_argument("--format", default="user", choices=["user", "world_bold", "world_plain", "world_mixed"],
                     help="labels for the world's turns: **User:** (model card), **WORLD:**, or plain WORLD:")
     ap.add_argument("--npc-style", default="inline", choices=["inline", "labels"],
                     help="with --param npc_voice=separate: NPC words inline in the world's turn, or one label each")

@@ -57,3 +57,21 @@ name = "suggest_at_end"
 type = "bool"
 label = "At game end (before the handoff), ask the player in-world for a note to the world's makers"
 default = false
+
+[[params]]
+name = "guide"
+type = "bool"
+label = "Tell the player how the world works, its places, the notebook, and the turn cap (computer-10's suggestion)"
+default = false
+
+[[params]]
+name = "events"
+type = "bool"
+label = "Extra scheduled events: Ines looks for Pell (turn 14), a storm (turn 24)"
+default = false
+
+[[params]]
+name = "waystone_lines"
+type = "str"
+label = "Lines carved in earlier playthroughs, one per line; they appear on the Waystone"
+default = ""

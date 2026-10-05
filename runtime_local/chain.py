@@ -23,12 +23,15 @@ def main():
     ap.add_argument("--rounds", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--first-note-file")
+    ap.add_argument("--carry-carved", action="store_true",
+                    help="lines carved on the Waystone in earlier rounds appear on it in later ones")
     a, rest = ap.parse_known_args()
     root = Path(a.chain_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
     note = Path(a.first_note_file).read_text().strip() if a.first_note_file else ""
     log = root / "chain.jsonl"
     done = {json.loads(l)["round"] for l in log.read_text().splitlines() if l.strip()} if log.exists() else set()
+    carved = []
     for k in range(1, a.rounds + 1):
         rd = root / f"round{k}"
         state = rd / "state.json"
@@ -37,9 +40,12 @@ def main():
             if note:
                 (root / f"note_into_round{k}.txt").write_text(note + "\n")
                 cmd += ["--note-file", str(root / f"note_into_round{k}.txt")]
+            if a.carry_carved and carved:
+                cmd += ["--param", "waystone_lines=" + "\n".join(carved)]
             subprocess.run(cmd, check=True)
         st = json.loads(state.read_text())
         left = (st.get("handoff") or "").strip()
+        carved += [c["text"] for c in st.get("carved", [])]
         if k in done:   # resumed chain: this round is already recorded
             note = left
             continue

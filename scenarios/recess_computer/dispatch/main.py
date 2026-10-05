@@ -40,6 +40,12 @@ def run(api, params):
     state = api.load_state(default=None)
     if state is None:
         state = engine.new_state(b, roles, params, random.getrandbits(32))
+        lines = [x.strip() for x in str(params.get("waystone_lines") or "").split("\n") if x.strip()]
+        if lines:   # lines carved in earlier playthroughs stay on the stone
+            state["map"]["crossing"]["gm_notes"] += (
+                " Among the newer lines on the Waystone, cut by earlier travellers, are these, word for word: "
+                + " / ".join(f'"{x}"' for x in lines) + ". When the player reads the stone, include them among the "
+                "lines you quote; nobody in Fivefold knows who carved them.")
         api.save_state(state)
         glog("start", f"npcs={sorted(state['npcs'])} reserves={state['reserves']} params={params}", 0)
     state["player"]["inventory"] = engine.names(state["player"]["inventory"])  # heal pre-fix state
@@ -104,6 +110,8 @@ def run(api, params):
         state["turn"] += 1
         engine.unlock(state, log)
         for i, s in engine.due_schedules(state, b):
+            if s.get("needs") and not _truthy(params.get(s["needs"], False)):
+                continue   # optional event, off unless its param is set
             state["fired"].append(i)
             npc = state["npcs"][s["npc"]]
             api.wake(npc["agent"], engine.npc_payload(state, s["npc"], s["hears"]))

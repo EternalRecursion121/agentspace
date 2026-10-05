@@ -115,6 +115,15 @@
      "text": "The player has left a line on the Waystone. Aud copies it into the ledger in front of them. Anyone who reads the stone from now on reads it too."
     }
    ]
+  },
+  {
+   "name": "the notebook",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player carries a small blank notebook (only if they mention it; it is not an item to narrate otherwise). When they write in it, put their exact words in the JSON key `notebook` and narrate nothing more than the writing."
+    }
+   ]
   }
  ]
 }

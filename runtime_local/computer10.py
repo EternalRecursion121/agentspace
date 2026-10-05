@@ -39,22 +39,24 @@ class Format:
     user        **User:** / **Model C:**  (the model card's format; the first runs)
     world_bold  **WORLD:** / **Model C:**
     world_plain WORLD: / Model C:
+    world_mixed WORLD: / **Model C:**  (plain world label, Computer's own label as in its training)
     `npc` (only matters when NPC words arrive separately): "inline" puts each line inside
     the world's turn as `Name — ...`; "labels" gives each NPC its own turn label."""
 
     def __init__(self, style="user", npc="inline", header=None, npc_names=()):
         self.style, self.npc = style, npc
-        bold = style != "world_plain"
+        bold = style not in ("world_plain",)
         lab = (lambda n: f"**{n}:**") if bold else (lambda n: f"{n}:")
-        self.world = lab("User" if style == "user" else "WORLD")
+        self.world = "WORLD:" if style == "world_mixed" else lab("User" if style == "user" else "WORLD")
         self.model = lab("Model C")
         self.lab = lab
         self.header = header or (HEADER if style == "user" else WORLD_HEADER)
         names = ["User", "WORLD", "Model C", "Game master", "Game Master", "GM"] + list(npc_names)
         # vLLM accepts at most 4 stop strings. Bold styles stop on any bold paragraph opener
         # (every turn label); plain labels not covered here are cut by label_re afterwards.
-        self.stop = (["\n\n**User:**", "\n\n**Model C:**"] if style == "user" else ["\n\n**"] if bold
-                     else ["\n\nWORLD:", "\n\nModel C:", "\n\nUser:", "\n\n**"])
+        self.stop = (["\n\n**User:**", "\n\n**Model C:**"] if style == "user"
+                     else ["\n\nWORLD:", "\n\n**", "\n\nUser:"] if style == "world_mixed"
+                     else ["\n\n**"] if bold else ["\n\nWORLD:", "\n\nModel C:", "\n\nUser:", "\n\n**"])
         alt = "|".join(re.escape(n) for n in sorted(names, key=len, reverse=True))
         # bold labels count anywhere; plain ones only at the start of a line
         self.label_re = re.compile(rf"\*\*(?:{alt})\s*:\*\*|(?m:^[ \t]*(?:{alt})\s*:)")

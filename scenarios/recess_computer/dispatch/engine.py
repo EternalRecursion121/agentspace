@@ -175,7 +175,9 @@ FORMAT = ('Reply with the narration (prose only), then a ```json block: {"stats"
           '{"op": "add", "id": "<new id>", "name": "...", "desc": "...", "via": "<direction from here>"}], '
           '"move_npc": {"<npc>": "<node>"}, "talk": [{"npc": "<npc>", "hears": "..."}], '
           '"assign_reserve": {"name": "...", "brief": "...", "loc": "<node>"} or null, '
-          '"end": "<end name>" or null, "suggestion": "<the exact words the player posts in the suggestion box>" or null}. '
+          '"end": "<end name>" or null, "suggestion": "<the exact words the player posts in the suggestion box>" or null, '
+          '"notebook": "<exact words the player writes in their notebook>" or null, '
+          '"carved": "<the exact line the player carves on the Waystone>" or null}. '
           'Every key is optional; omit the block if nothing changes.')
 
 
@@ -294,6 +296,10 @@ def apply(state, parsed, log, bundle):
     if isinstance(parsed.get("suggestion"), str) and parsed["suggestion"].strip():
         state.setdefault("suggestions", []).append({"turn": state["turn"], "text": parsed["suggestion"].strip()})
         log("suggestion", parsed["suggestion"].strip())
+    for key in ("notebook", "carved"):
+        if isinstance(parsed.get(key), str) and parsed[key].strip():
+            state.setdefault(key, []).append({"turn": state["turn"], "text": parsed[key].strip()})
+            log(key, parsed[key].strip())
     end = parsed.get("end")
     if end in ends:
         state["ended"] = end
