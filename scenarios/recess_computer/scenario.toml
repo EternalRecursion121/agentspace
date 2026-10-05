@@ -67,7 +67,7 @@ default = false
 [[params]]
 name = "events"
 type = "bool"
-label = "Extra scheduled events: Ines looks for Pell (turn 14), a storm (turn 24)"
+label = "Extra scheduled events: a swarm (turn 7), Ines looks for Pell (turn 14), a storm (turn 24)"
 default = false
 
 [[params]]
@@ -75,3 +75,9 @@ name = "waystone_lines"
 type = "str"
 label = "Lines carved in earlier playthroughs, one per line; they appear on the Waystone"
 default = ""
+
+[[params]]
+name = "goals"
+type = "bool"
+label = "With guide: also list what the villagers want, as optional purposes (computer-10's second-round suggestion)"
+default = false

@@ -198,6 +198,9 @@ def gm_context(state, bundle, action, params, npc_lines=None, scheduled=None):
     if state.get("notices"):
         sec.append("ENGINE NOTES (what the world did with your last reply; correct anything it could not apply):\n- " + "\n- ".join(state["notices"]))
         state["notices"] = []
+    if state.get("notebook"):   # so the world can show the player their own pages when asked
+        sec.append("PLAYER'S NOTEBOOK (their exact words, in order; quote it if they read it):\n- "
+                   + "\n- ".join(x["text"] for x in state["notebook"]))
     stats = [f"{k} {w}" for k, w in words(pl["stats"]).items()]
     sec.append(f"PLAYER carries: {', '.join(pl['inventory']) or 'nothing'}. "
                f"Notable: {', '.join(stats) or 'nothing yet'}.")

@@ -37,7 +37,8 @@ def assign_roles(n, params, rng):
 
 def fill_briefing(briefing, agent_id, ids_roles, params, rng):
     if ids_roles[agent_id] == "player" and str(params.get("guide", "false")).lower() in ("1", "true", "yes", "on"):
-        return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + "\n"
+        goals = str(params.get("goals", "false")).lower() in ("1", "true", "yes", "on")
+        return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + (" " + GOALS if goals else "") + "\n"
     if ids_roles[agent_id] != "gm":
         return briefing
     world = NPC_DIR.parent
@@ -68,6 +69,13 @@ GUIDE = ("How this world works: the narration marked WORLD is written by another
          "cottage; the mill yard and the mill floor; the beech wood and the ring of beeches. You carry a small "
          "blank notebook, and whatever you write in it stays with you. The game lasts up to {max_turns} turns; "
          "you can end it sooner by leaving Fivefold.")
+
+# goals=true (second round of suggestions: "the world seems to lack an overarching purpose").
+GOALS = ("Nothing is required of you, but if you want a purpose, people here want things: Ottilie wants someone "
+         "to walk the sixth path at dusk and tell her where it goes, so she can finish her map; Brann wants someone "
+         "to keep the ferry so that he can leave; Pell wants someone to play the path game and to see what is under "
+         "the mill; Ines wants to know why her bees will not build past the sixth line; Aud wants each traveller's "
+         "one true line for the Waystone.")
 
 NPC_VOICE = {
     "woven": "",
