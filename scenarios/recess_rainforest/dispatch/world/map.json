@@ -1,0 +1,136 @@
+{
+  "start": "riverbank",
+  "nodes": {
+    "riverbank": {
+      "name": "The riverbank",
+      "desc": "A brown, slow river under trees so tall their tops are lost in mist. The air is warm and wet; everything drips. A riverboat is tied to a root, its paint peeling, a hammock slung across its deck. Somewhere upstream, falling water. The whole forest smells of wet earth, rotting leaves, flowers and river mud. Rain frogs call from every leaf.",
+      "exits": {
+        "upstream along the bank": "pool",
+        "into the trees": "trail",
+        "aboard the riverboat": "boat",
+        "downstream to the still water": "oxbow"
+      },
+      "items": [
+        "fallen mango"
+      ],
+      "gm_notes": "The river can be swum, but it is strong in the middle."
+    },
+    "boat": {
+      "name": "The riverboat",
+      "desc": "A flat-bottomed boat with a tin roof over the wheel. Inside the cabin: a narrow bunk with a patched quilt, a stove with a kettle always on, coils of rope, jars of things in vinegar, river charts pinned to the ceiling, and a parrot's empty perch.",
+      "exits": {
+        "back to the bank": "riverbank"
+      },
+      "items": [
+        "coil of rope",
+        "oil lamp"
+      ],
+      "gm_notes": "The captain's boat. She can take people up or down the river."
+    },
+    "pool": {
+      "name": "The pool and the rope swing",
+      "desc": "A deep green pool below a rock ledge, with a rope swing hanging from a branch over it, knotted at the end. The water is clear enough to see the stones on the bottom, and cold when you go in. On the rock wall behind it someone long ago carved a spiral, worn shallow by water.",
+      "exits": {
+        "back down the bank": "riverbank",
+        "behind the curtain of vines": "cave_mouth",
+        "up the rocks": "waterfall"
+      },
+      "items": [],
+      "gm_notes": "Swinging out and dropping into the pool is safe and exhilarating; landing badly stings."
+    },
+    "waterfall": {
+      "name": "The waterfall",
+      "desc": "Water pours off a lip of black rock about three storeys high, thick and white after rain and thinning to threads in dry spells, into spray, and in the spray a rainbow that moves when you move. From the side it is a curtain; from below, a roar; from the top, a drop into green. Behind the falling water there is a gap, wet and dark.",
+      "exits": {
+        "down to the pool": "pool",
+        "behind the water": "cave_mouth"
+      },
+      "items": [],
+      "gm_notes": "Swimming beneath the falls is possible; the pounding water is loud and the rainbow follows."
+    },
+    "cave_mouth": {
+      "name": "The cave of bats",
+      "desc": "A cave that breathes cool air. High up, thousands of bats of several kinds hang folded: small brown ones in clusters, a few big fruit bats alone, shifting and squeaking. A thin stream runs along the floor, and in it tiny blind white shrimp. The floor slopes down into darkness, and far below there is the sound of still water.",
+      "exits": {
+        "out to the pool": "pool",
+        "down the slope": "lake"
+      },
+      "items": [],
+      "gm_notes": "The bats can be fed (fruit) or disturbed (they all fly out at once). The way down needs a light."
+    },
+    "lake": {
+      "name": "The underground lake",
+      "desc": "A black lake under a stone sky, perfectly still. In its middle, an island with the ruins of something built: steps, a broken arch, a wall with carvings. Water drips from the roof in places and rings spread slowly across the lake.",
+      "exits": {
+        "back up the slope": "cave_mouth",
+        "across the water": "ruin"
+      },
+      "items": [],
+      "gm_notes": "The island can be reached by swimming or by boat (the captain's boat cannot come here, but a raft can be built)."
+    },
+    "ruin": {
+      "name": "The ruined island",
+      "desc": "Moss-soft steps, an arch with half its stones fallen, and a wall carved with pictures: people swimming, a river, a hut, a figure hanging from a rope over water.",
+      "exits": {
+        "back across the water": "lake"
+      },
+      "items": [
+        "loose carved stone"
+      ],
+      "gm_notes": "What the carvings mean is not fixed by the world: let what the player does and says decide it."
+    },
+    "trail": {
+      "name": "The forest trail",
+      "desc": "A narrow trail between buttress roots taller than a person, with leaf-litter underfoot and things moving in it. Light comes down in coins. A monkey watches from above and follows when it thinks no one sees.",
+      "exits": {
+        "back to the river": "riverbank",
+        "toward the light": "meadow",
+        "off the trail, uphill": "hermitage"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "meadow": {
+      "name": "The meadow of fruit trees",
+      "desc": "An open meadow in the forest with fruit trees in it: mango, breadfruit, and a tree hung with orange fruit covered in soft spikes, which split open to show white, sweet, sour flesh. Butterflies in hundreds over flowers you do not know. At the far edge, a hut with a roof that has fallen in on one side.",
+      "exits": {
+        "back into the trees": "trail",
+        "to the hut": "hut"
+      },
+      "items": [
+        "ripe breadfruit"
+      ],
+      "gm_notes": "Fruit can be picked and eaten freely; some is sour."
+    },
+    "hut": {
+      "name": "The hut",
+      "desc": "A hut of poles with a roof of overlapping palm leaves tied in rows, half of it fallen in. A table, a water jar with fresh water in it, a game of stones scratched on the floor (a grid of nine circles, some stones still in place), and tools leaning in a corner, as if someone meant to mend it.",
+      "exits": {
+        "out to the meadow": "meadow"
+      },
+      "items": [
+        "water jar",
+        "palm-fibre twine"
+      ],
+      "gm_notes": "Everyone in the rainforest uses the hut and nobody has fixed the roof. It can be repaired, extended or rebuilt by anyone who works at it, alone or with others; record what is built."
+    },
+    "hermitage": {
+      "name": "The hermit's platform",
+      "desc": "A platform built high in a fig tree, reached by a ladder of aerial roots grown into steps, with ferns and orchids rooted in the bark beside them. Shelves of dried things, a telescope pointed at the canopy, a hammock.",
+      "exits": {
+        "back down to the trail": "trail"
+      },
+      "items": [],
+      "gm_notes": "The hermit does not like visitors, at first."
+    },
+    "oxbow": {
+      "name": "The oxbow lake",
+      "desc": "A quiet, open lake cut off from the river long ago, brown-green, covered in lily pads, with a small island of three palms in the middle. Herons stand in the shallows.",
+      "exits": {
+        "back along the river": "riverbank"
+      },
+      "items": [],
+      "gm_notes": "The island can be swum to or reached by raft. Nothing in particular is on it unless someone puts it there."
+    }
+  }
+}

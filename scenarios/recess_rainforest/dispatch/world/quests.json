@@ -1,0 +1,23 @@
+{
+ "ends": {},
+ "arcs": [
+  {
+   "name": "making",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player may make, build, mend or change things anywhere: a raft, the hut's roof, a new swing, a path. Let it happen with consequences, not refusals; record made things with items.create and new places with map add."
+    }
+   ]
+  },
+  {
+   "name": "a world that collaborates",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The world itself joins in: the river, the hut, the trees and the weather respond to what people do, as if they had their own leanings (the river helps a raft that goes with it; the hut creaks approvingly when mended). Show this in what things do, never by making them talk."
+    }
+   ]
+  }
+ ]
+}

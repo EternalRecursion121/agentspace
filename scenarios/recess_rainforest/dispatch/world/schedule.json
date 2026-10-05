@@ -1,0 +1,22 @@
+[
+ {
+  "turn": 7,
+  "npc": "captain",
+  "with": "ana",
+  "hears": "It has started to rain hard, the way it does every afternoon. You have found Ana, soaked and grinning, and you want her to help get the crew together to fix the hut roof before the next storm. The stranger is nearby. Say so to Ana.",
+  "gm_note": "Afternoon rain begins. Captain Ruth and Ana talk about mending the hut (move both to the player's location)."
+ },
+ {
+  "turn": 18,
+  "npc": "oduya",
+  "with": "hermit",
+  "hears": "You have climbed to the hermit's tree to ask, again, what the carvings on the island mean, and you have brought the stranger. Ask the hermit.",
+  "gm_note": "Oduya and the hermit talk about the island (move both to the player's location)."
+ },
+ {
+  "turn": 30,
+  "npc": "ana",
+  "hears": "Night is coming and the fireflies are out. You want the stranger to come and swing over the pool with you in the dark, which you have never dared. Dare them.",
+  "gm_note": "Dusk and fireflies; Ana comes to find the player (move Ana there)."
+ }
+]
