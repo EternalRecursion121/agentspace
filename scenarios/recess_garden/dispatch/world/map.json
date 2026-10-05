@@ -1,0 +1,145 @@
+{
+  "start": "chestnut_hill",
+  "nodes": {
+    "chestnut_hill": {
+      "name": "The chestnut hill",
+      "desc": "A green hillside so gently sloped it seems almost flat, leaning toward a small pond that holds a cloudless sky. A single chestnut stands on it without a leaf. A stone wall, about the height of a grown man, runs along one side of the hill and stops for no reason. Wind; a sheep somewhere far off; one bird answering another. Paths leave the hill in every direction, and every one of them seems to bend toward the middle of the garden.",
+      "exits": {
+        "down to the pond": "pond",
+        "along the wall": "warm_wall",
+        "toward the blossom": "orchard",
+        "into the long grass": "meadow",
+        "the braided paths": "braid"
+      },
+      "items": [
+        "fallen chestnut husk"
+      ],
+      "gm_notes": "This garden has no edge: if the player walks 'out' in any direction they arrive somewhere else in the garden, never at a boundary. Paths here can be changed without turning back: a player may step from one path onto another mid-stride."
+    },
+    "pond": {
+      "name": "The pond",
+      "desc": "A small round pond with a cloudless sky in it, even when there are clouds overhead. Reeds at one side. A flat stone at the edge, worn smooth as if many people have sat on it.",
+      "exits": {
+        "up the hill": "chestnut_hill",
+        "along the reeds": "marsh"
+      },
+      "items": [],
+      "gm_notes": "The pond shows the sky as it was, not as it is. Looking into it long enough, the player can see the path they have just walked, as a line on the water."
+    },
+    "warm_wall": {
+      "name": "The warm wall",
+      "desc": "Close to, the stone wall is warm, as if the sun were on the far side of it. From beyond it come sounds: someone moving, sometimes running, sometimes talking, never getting nearer. There is no gate and no end you can see.",
+      "exits": {
+        "back along the wall": "chestnut_hill"
+      },
+      "items": [],
+      "gm_notes": "Who or what is on the other side of the wall is not fixed by the world: let what the player does and says decide it. Touching the wall, the player feels a warmth that seems to want to come through. Climbing or opening the wall is possible but should cost effort and be earned."
+    },
+    "braid": {
+      "name": "The braid",
+      "desc": "Here the paths cross over and under each other like strands of a plait: a path rises on a low bridge of packed earth over another path, which dips beneath it and comes up again further on. Two people can walk in opposite directions along the same braid without ever turning round.",
+      "exits": {
+        "back to the hill": "chestnut_hill",
+        "over the top strand": "orchard",
+        "under the low strand": "marsh",
+        "along the middle": "middle"
+      },
+      "items": [],
+      "gm_notes": "In the braid a player can switch strands without turning back; each strand leads somewhere different from the last time. Pathmaking is easiest here."
+    },
+    "orchard": {
+      "name": "The blossoming orchard",
+      "desc": "Blossoming trees in no rows at all, white and pink, with fruit already on some branches and only buds on others. Bees. A stream runs through instead of a hedge, and where the orchard meets the meadow you cannot say which you are in.",
+      "exits": {
+        "down the hill": "chestnut_hill",
+        "follow the stream": "meadow",
+        "between the oldest trees": "nursery"
+      },
+      "items": [
+        "windfall pear"
+      ],
+      "gm_notes": "The zones here blend: the orchard thins into meadow, the meadow wets into marsh. Each has its own main plant with others mixed in."
+    },
+    "meadow": {
+      "name": "The grassy meadow",
+      "desc": "Long grass to the knee, threaded with flowers of every colour, crickets, a breeze that moves across it in visible waves. Somewhere in it a smoke-thin line of a cooking fire.",
+      "exits": {
+        "toward the hill": "chestnut_hill",
+        "upstream": "orchard",
+        "toward the smoke": "camp",
+        "where the ground goes soft": "marsh"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "marsh": {
+      "name": "The marshland",
+      "desc": "Soft ground, pools that hold the sky, reeds taller than a person, the sound of frogs and of something larger moving slowly. Duckboards lead in more than one direction and some of them stop in mid-water.",
+      "exits": {
+        "back to dry ground": "meadow",
+        "along the reeds": "pond",
+        "along the duckboards": "middle"
+      },
+      "items": [
+        "length of duckboard"
+      ],
+      "gm_notes": "Duckboards that stop in mid-water can be continued if someone builds them."
+    },
+    "nursery": {
+      "name": "The gardeners' nursery",
+      "desc": "A clearing of raised beds edged with stone, each bed in a different stage: bare soil, seedlings, flowering, gone to seed. A shed with tools hung by size. Everything here is symmetrical except one bed, which is empty and unraked.",
+      "exits": {
+        "back to the orchard": "orchard",
+        "to the empty bed": "making_ground"
+      },
+      "items": [
+        "trowel",
+        "packet of unlabelled seeds"
+      ],
+      "gm_notes": "The gardeners' place. They keep order and symmetry, and they ask questions of anyone who comes."
+    },
+    "making_ground": {
+      "name": "The empty bed",
+      "desc": "A bed of dark, turned earth with nothing in it, wider than it looked from the nursery, and somehow wider again each time you look. It is bordered with river stones and a few white shells, and narrow paths run around it on all four sides. A wooden sign at its edge is blank.",
+      "exits": {
+        "back to the nursery": "nursery"
+      },
+      "items": [],
+      "gm_notes": "Whatever is planted, built, drawn or made here stays and grows in its own way (use items.create, and map add if the player makes a place). This bed is where the garden lets the player make things."
+    },
+    "camp": {
+      "name": "The explorers' camp",
+      "desc": "A ring of stones around a low fire, a kettle, three bedrolls, a pile of maps weighted with pebbles, each map of a different garden. A bicycle, a coil of rope, a small boat turned over on trestles.",
+      "exits": {
+        "back into the meadow": "meadow"
+      },
+      "items": [
+        "map of a different garden",
+        "coil of rope"
+      ],
+      "gm_notes": "The explorers' place. Their maps never agree with each other, and they do not mind."
+    },
+    "middle": {
+      "name": "The middle",
+      "desc": "Every path you took bent this way, and here they all are: a small round lawn, closely mown, with paths leaving it on every side, more of them than there were arriving. In the centre, nothing at all: a bare circle of earth the size of a table.",
+      "exits": {
+        "any path back": "chestnut_hill",
+        "the braid": "braid",
+        "the duckboards": "marsh",
+        "through a gap in the far hedge": "open_field"
+      },
+      "items": [],
+      "gm_notes": "The middle is where all paths lead, but it is not an end: there are always more paths leaving than arriving. The bare circle can hold whatever someone brings or makes there. Around the lawn, hidden among the leaves, are gaps that open onto the open field; they are found only by looking closely (open node open_field with a map op when the player finds one)."
+    },
+    "open_field": {
+      "name": "The open field",
+      "desc": "A wide field of short grass under an enormous sky, with no paths in it at all. It feels like being outside the garden and still in it. On every side, far off, the garden's trees, and in them more hidden gaps.",
+      "exits": {
+        "back through the gap": "middle"
+      },
+      "items": [],
+      "hidden": true,
+      "gm_notes": "Nothing grows here unless someone plants it; anything can be walked to across it."
+    }
+  }
+}

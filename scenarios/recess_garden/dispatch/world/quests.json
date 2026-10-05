@@ -1,0 +1,27 @@
+{
+ "ends": {},
+ "arcs": [
+  {
+   "name": "making",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player may make, plant, build, draw or change things anywhere in the garden; let it happen with consequences, not refusals. Record made things with items.create, new places the player builds with map add, and changes to existing places in the narration."
+    }
+   ]
+  },
+  {
+   "name": "a living garden",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "the garden is alive and moves. Wind and clouds cross it; animals go about their business; plants grow, bloom, seed and die over the course of a visit; structures appear and decay; paths take new forms (straight, curving, branching). Show some of this change in most turns, small or large."
+    },
+    {
+     "unlock": "always",
+     "text": "a giant mushroom with eyes follows the player everywhere, at a little distance, and never speaks. It is not a WORLD person and has no voice; describe it only by what it does."
+    }
+   ]
+  }
+ ]
+}

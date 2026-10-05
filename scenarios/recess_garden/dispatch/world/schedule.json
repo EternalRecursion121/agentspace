@@ -1,0 +1,22 @@
+[
+ {
+  "turn": 8,
+  "npc": "hesper",
+  "with": "tamsin",
+  "hears": "You have walked out to the explorers' camp to argue with Tamsin, again, about the braid: you want to plant a hedge along it so the paths stop crossing; she wants it left as it is. The stranger is nearby. Say your piece to Tamsin.",
+  "gm_note": "Hesper and Tamsin argue about the braid, where the player can hear (move both to the player's location with move_npc). Narrate only what the player perceives; the two speak in their own words."
+ },
+ {
+  "turn": 20,
+  "npc": "burr",
+  "hears": "The wind has blown you, rustling, to wherever the stranger is. You did not choose it. You are annoyed about it, and say so, briefly, and then you notice something about the stranger that interests you, and you ask about it.",
+  "gm_note": "Burr has drifted to the player's location on the wind (move Burr there with move_npc)."
+ },
+ {
+  "turn": 32,
+  "npc": "tamsin",
+  "with": "hesper",
+  "hears": "You have come to tell Hesper that the empty bed has grown: it is wider than yesterday, and something you cannot name has come up in one corner. You want to know whether she planted it. The stranger is with you. Tell her.",
+  "gm_note": "Tamsin and Hesper talk about the empty bed growing (move both to the player's location)."
+ }
+]
