@@ -1,4 +1,4 @@
-"""recess_mvp build hooks: fixed player + gm, chosen NPC roles, reserves."""
+"""recess_computer build hooks: fixed player + gm, chosen NPC roles, reserves."""
 import json
 import sys
 from pathlib import Path

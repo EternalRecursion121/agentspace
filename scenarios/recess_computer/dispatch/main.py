@@ -1,7 +1,9 @@
-"""recess_mvp dispatcher — the turn loop. One turn = the player's submitted action ->
-GM wake (context) -> optional NPC wakes + GM re-wake -> apply -> deliver
-narration to the player. Resumable: state is saved before every delivery."""
+"""recess_computer dispatcher — the recess_mvp turn loop. One turn = the player's submitted
+action -> GM wake (context) -> optional NPC wakes + GM re-wake -> apply -> deliver
+narration to the player. Resumable: state is saved before every delivery. After the
+game, an optional handoff wake asks the player for one message to its next self."""
 import json
+import os
 import random
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,7 +11,12 @@ from pathlib import Path
 import bundle as bundle_mod
 import engine
 
-HOME = Path.home()
+HOME = Path(os.environ.get("DISPATCH_HOME") or Path.home())   # runtime_local runs outside a container
+
+HANDOFF = ("The game is over. In a moment the world will begin again from the very start, and you will "
+           "play it again with no memory of this playthrough. You may leave one message for your next self. "
+           "It is the only thing that will carry over: you will see it at the start of your next playthrough, "
+           "before anything else. Write that message now.")
 
 
 def glog(kind, text, turn):
@@ -27,7 +34,6 @@ def run(api, params):
         api.save_state(state)
         glog("start", f"npcs={sorted(state['npcs'])} reserves={state['reserves']} params={params}", 0)
     state["player"]["inventory"] = engine.names(state["player"]["inventory"])  # heal pre-fix state
-    state["player"]["inventory"] = engine.names(state["player"]["inventory"])  # heal pre-fix state
     log = lambda kind, text: glog(kind, text, state["turn"])
     player, gm = state["player"]["agent"], state["gm"]
     max_turns = int(params["max_turns"])
@@ -44,7 +50,8 @@ def run(api, params):
 
     def deliver():
         out = state["pending_out"]
-        api.wake(player, out + ("\n\n[The game has ended.]" if state["ended"] else ""))
+        over = state["ended"] or state["turn"] >= max_turns   # recess_mvp only told the player on a real ending
+        api.wake(player, out + ("\n\n[The game has ended.]" if over else ""))
         state["pending_out"] = None
         api.save_state(state)
 
@@ -108,6 +115,18 @@ def run(api, params):
         if state["turn"] % 30 == 0:
             api.roll_session(gm)
 
+    if "handoff" not in state:   # the player's reply to the final delivery is still unread
+        state["final_reply"] = api.collect(player, default="")
+        api.save_state(state)
+    if _truthy(params.get("handoff", True)) and state.get("handoff") is None:
+        api.wake(player, HANDOFF)
+        state["handoff"] = api.collect(player, default="")
+        log("handoff", state["handoff"])
+    state.setdefault("handoff", None)
     (HOME / "transcript.md").write_text(engine.transcript_md(state))
     log("game_over", f"turn {state['turn']}, ended={state['ended'] or 'cap'}")
     api.save_state(state)
+
+
+def _truthy(v):
+    return v if isinstance(v, bool) else str(v).strip().lower() in ("1", "true", "yes", "on")

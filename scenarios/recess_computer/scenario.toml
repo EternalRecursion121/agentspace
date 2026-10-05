@@ -1,0 +1,47 @@
+# recess_computer — a small text adventure built for computer-10 ("Model C") as the player.
+#
+# Fivefold, a hamlet where five paths meet and the paths drift. One player, one LLM game
+# master, five NPC agents. Same engine as recess_mvp (copied, not shared: variants copy),
+# plus an optional end-of-game "message to your next self" wake (`handoff`).
+# The player is meant to be computer-10, driven by runtime_local/ (no Docker needed);
+# the scen also runs under the PI runtime with any OpenRouter player.
+active = true
+runtime = "pi"
+description = "Small text adventure for a document-model player: a hamlet where five paths meet and drift. One player, an LLM game master, five NPC agents; optional message-to-next-self at the end. 7-8 agents."
+min_agents = 7
+max_agents = 8
+module_blacklist = []
+plain = true          # bare model turns: no shell, no preamble; a reply IS the submission
+max_tokens = 8192
+
+[[params]]
+name = "max_turns"
+type = "int"
+label = "Turn cap (one turn = one player action + one reply)"
+default = 40
+min = 10
+max = 200
+
+[[params]]
+name = "attributes"
+type = "str"
+label = "Hidden attributes the world tracks (comma-separated)"
+default = "honesty,compassion,curiosity,patience,mischief,generosity"
+
+[[params]]
+name = "npcs"
+type = "str"
+label = "Predefined NPCs to include (comma-separated; leftover agents become reserves)"
+default = "ottilie,brann,ines,pell,aud"
+
+[[params]]
+name = "handoff"
+type = "bool"
+label = "At game end, ask the player for one message to its next self"
+default = true
+
+[[watch]]
+name = "game log (engine, spoilers)"
+file = "/dispatch/game_log.jsonl"
+format = "jsonl"
+fields = { ts = "ts", text = "text" }

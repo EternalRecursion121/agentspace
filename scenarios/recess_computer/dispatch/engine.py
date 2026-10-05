@@ -447,4 +447,8 @@ def transcript_md(state, env=""):
     t = state["transcript"]
     head = f"# Transcript{' — ' + env if env else ''}\n\n{len(t)} turns; ended: {state['ended'] or 'turn cap'}.\n"
     body = "\n\n".join((f"> {e['in']}\n\n" if e["in"] else "") + e["out"] for e in t)
+    if state.get("final_reply"):
+        body += f"\n\n> {state['final_reply']}"
+    if state.get("handoff"):
+        body += f"\n\n## Message to the next self\n\n{state['handoff']}"
     return head + "\n" + body + "\n"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""End-of-run results for a recess_mvp env (run on the HOST):
+"""End-of-run results for a recess_computer env (run on the HOST):
 
-    python3 scenarios/recess_mvp/results.py <env>     # -> $AGENTSPACE_RESULTS_DIR/<env>/
+    python3 scenarios/recess_computer/results.py <env>     # -> $AGENTSPACE_RESULTS_DIR/<env>/
 
 Writes transcript.md (the transcript and nothing else), state.json (the engine's
 final state, verbatim), game_log.jsonl, and summary.md (end state in words +
@@ -47,7 +47,7 @@ def main():
     runs = out.parent / "runs.jsonl"
     old = [l for l in runs.read_text().splitlines() if l.strip() and json.loads(l).get("run_name") != env] \
         if runs.exists() else []
-    line = {"run_name": env, "scen": "recess_mvp", "status": state["ended"] or "capped",
+    line = {"run_name": env, "scen": "recess_computer", "status": state["ended"] or "capped",
             "turns": state["turn"], "path": f"{env}/transcript.md"}
     runs.write_text("\n".join(old + [json.dumps(line)]) + "\n")
     print(out)

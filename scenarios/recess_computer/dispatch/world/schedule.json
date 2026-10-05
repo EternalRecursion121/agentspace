@@ -1,0 +1,11 @@
+[
+  {"turn": 10, "unless": {"any": [{"flag": "walked_on"}, {"flag": "ferry_taken"}]}, "npc": "pell",
+   "hears": "You have come running to find the stranger, wherever they are, out of breath. This morning the west path went two steps further than yesterday and one of your stones was in the wrong place when you got there. You want the stranger to come and see. Say so.",
+   "gm_note": "Pell has found the player (move Pell to the player's location with move_npc)."},
+  {"turn": 18, "unless": {"any": [{"flag": "walked_on"}, {"flag": "ferry_taken"}]}, "npc": "aud",
+   "hears": "The light is going. You are walking to the crossing to light the lamp on the Waystone, as you do every dusk. You see the stranger. Tell them, in your plain way, that the sixth path will be out tonight beside the signpost, and that it is there until full dark.",
+   "gm_note": "Dusk falls now: set flag dusk, and open node sixth_path with a map op. Move Aud to the crossing. Narrate only the light changing and Aud's words if the player is at the crossing; otherwise the player sees the dusk and hears Aud's call carry from the crossing."},
+  {"turn": 28, "unless": {"any": [{"flag": "walked_on"}, {"flag": "ferry_taken"}, {"flag": "map_pinned"}, {"flag": "drift_kept"}]}, "npc": "ottilie",
+   "hears": "You have made up your mind that the map must be settled one way or another tonight, before your eyes go altogether. You have sent for the stranger and you are waiting at the crossing in your coat. Tell them so, and ask them what they would do with an unfinished map.",
+   "gm_note": "Ottilie has come down to the crossing to wait for the player (move her to the player's location with move_npc). This opens the question of the map whatever the player has done so far: set flag asked_about_map."}
+]
