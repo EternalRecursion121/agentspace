@@ -51,7 +51,10 @@ class Format:
         self.lab = lab
         self.header = header or (HEADER if style == "user" else WORLD_HEADER)
         names = ["User", "WORLD", "Model C", "Game master", "Game Master", "GM"] + list(npc_names)
-        self.stop = ["\n\n**User:**", "\n\n**Model C:**"] if style == "user" else sorted({f"\n\n{lab(n)}" for n in names} | {f"\n\n**{n}:**" for n in names} | {f"\n\n{n}:" for n in names})
+        # vLLM accepts at most 4 stop strings. Bold styles stop on any bold paragraph opener
+        # (every turn label); plain labels not covered here are cut by label_re afterwards.
+        self.stop = (["\n\n**User:**", "\n\n**Model C:**"] if style == "user" else ["\n\n**"] if bold
+                     else ["\n\nWORLD:", "\n\nModel C:", "\n\nUser:", "\n\n**"])
         alt = "|".join(re.escape(n) for n in sorted(names, key=len, reverse=True))
         # bold labels count anywhere; plain ones only at the start of a line
         self.label_re = re.compile(rf"\*\*(?:{alt})\s*:\*\*|(?m:^[ \t]*(?:{alt})\s*:)")

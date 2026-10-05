@@ -175,7 +175,8 @@ FORMAT = ('Reply with the narration (prose only), then a ```json block: {"stats"
           '{"op": "add", "id": "<new id>", "name": "...", "desc": "...", "via": "<direction from here>"}], '
           '"move_npc": {"<npc>": "<node>"}, "talk": [{"npc": "<npc>", "hears": "..."}], '
           '"assign_reserve": {"name": "...", "brief": "...", "loc": "<node>"} or null, '
-          '"end": "<end name>" or null}. Every key is optional; omit the block if nothing changes.')
+          '"end": "<end name>" or null, "suggestion": "<the exact words the player posts in the suggestion box>" or null}. '
+          'Every key is optional; omit the block if nothing changes.')
 
 
 def gm_context(state, bundle, action, params, npc_lines=None, scheduled=None):
@@ -290,6 +291,9 @@ def apply(state, parsed, log, bundle):
     r = parsed.get("assign_reserve")
     if r and state["reserves"] and r.get("name") and r.get("brief"):
         _assign_reserve(state, r, log)
+    if isinstance(parsed.get("suggestion"), str) and parsed["suggestion"].strip():
+        state.setdefault("suggestions", []).append({"turn": state["turn"], "text": parsed["suggestion"].strip()})
+        log("suggestion", parsed["suggestion"].strip())
     end = parsed.get("end")
     if end in ends:
         state["ended"] = end

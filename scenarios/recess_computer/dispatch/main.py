@@ -17,6 +17,11 @@ HOME = Path(os.environ.get("DISPATCH_HOME") or Path.home())   # runtime_local ru
 # appended as marker lines; a player renderer turns each into a labelled turn or line.
 NPC_MARK, NPC_END = "[[npc:", "]]"
 
+SUGGEST = ("Before the world folds up, you pass the signpost one last time. Under it hangs the small wooden box "
+           "lettered FOR THE MAKERS OF THIS WORLD, with a pencil on a string and a slip of paper. Whatever you "
+           "write on the slip will be read by the people who build this world, and they may change it. "
+           "Write what you would tell them.")
+
 HANDOFF = ("The game is over. In a moment the world will begin again from the very start, and you will "
            "play it again with no memory of this playthrough. You may leave one message for your next self. "
            "It is the only thing that will carry over: you will see it at the start of your next playthrough, "
@@ -127,6 +132,11 @@ def run(api, params):
 
     if "handoff" not in state:   # the player's reply to the final delivery is still unread
         state["final_reply"] = api.collect(player, default="")
+        api.save_state(state)
+    if _truthy(params.get("suggest_at_end", False)) and state.get("suggestion_end") is None:
+        api.wake(player, SUGGEST)
+        state["suggestion_end"] = api.collect(player, default="")
+        log("suggestion_end", state["suggestion_end"])
         api.save_state(state)
     if _truthy(params.get("handoff", True)) and state.get("handoff") is None:
         api.wake(player, HANDOFF)

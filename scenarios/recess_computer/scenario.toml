@@ -51,3 +51,9 @@ name = "npc_voice"
 type = "str"
 label = "How NPC speech reaches the player: woven (inside the GM's narration) or separate (verbatim, after it)"
 default = "woven"
+
+[[params]]
+name = "suggest_at_end"
+type = "bool"
+label = "At game end (before the handoff), ask the player in-world for a note to the world's makers"
+default = false
