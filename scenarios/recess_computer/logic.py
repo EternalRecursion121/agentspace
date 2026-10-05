@@ -36,6 +36,8 @@ def assign_roles(n, params, rng):
 
 
 def fill_briefing(briefing, agent_id, ids_roles, params, rng):
+    if ids_roles[agent_id].startswith("npc_") and str(params.get("npc_ask", "false")).lower() in ("1", "true", "yes", "on"):
+        return briefing.rstrip() + "\n\n" + NPC_ASK + "\n"
     if ids_roles[agent_id] == "player" and str(params.get("guide", "false")).lower() in ("1", "true", "yes", "on"):
         goals = str(params.get("goals", "false")).lower() in ("1", "true", "yes", "on")
         return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + (" " + GOALS if goals else "") + "\n"
@@ -76,6 +78,11 @@ GOALS = ("Nothing is required of you, but if you want a purpose, people here wan
          "to keep the ferry so that he can leave; Pell wants someone to play the path game and to see what is under "
          "the mill; Ines wants to know why her bees will not build past the sixth line; Aud wants each traveller's "
          "one true line for the Waystone.")
+
+# npc_ask=true (third round: "the other characters should ask me questions more often", show "unique
+# styles of speech", allow "a true two-way communication").
+NPC_ASK = ("Talk with the stranger, not at them: answer what they actually said, ask them something back "
+           "when you are curious, and keep your own way of speaking. You may disagree, tease, or refuse.")
 
 NPC_VOICE = {
     "woven": "",

@@ -81,3 +81,15 @@ name = "goals"
 type = "bool"
 label = "With guide: also list what the villagers want, as optional purposes (computer-10's second-round suggestion)"
 default = false
+
+[[params]]
+name = "npc_ask"
+type = "bool"
+label = "Villagers talk with the player: answer, ask back, keep their own way of speaking (computer-10's third-round suggestion)"
+default = false
+
+[[params]]
+name = "past_note"
+type = "str"
+label = "The previous playthrough's message, placed on the Waystone in the player's own hand (in-world note)"
+default = ""

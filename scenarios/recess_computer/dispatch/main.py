@@ -40,6 +40,12 @@ def run(api, params):
     state = api.load_state(default=None)
     if state is None:
         state = engine.new_state(b, roles, params, random.getrandbits(32))
+        past = str(params.get("past_note") or "").strip()
+        if past:   # the previous playthrough's message, delivered inside the world rather than in the frame
+            state["map"]["crossing"]["gm_notes"] += (
+                " One line on the Waystone is in the player's own hand, left on an earlier visit they do not remember. "
+                f"It reads, word for word: \"{past}\". When the player reads the stone or speaks with Aud, make sure they "
+                "find it and quote it exactly; Aud recognises the hand and says so plainly. Do not explain it further.")
         lines = [x.strip() for x in str(params.get("waystone_lines") or "").split("\n") if x.strip()]
         if lines:   # lines carved in earlier playthroughs stay on the stone
             state["map"]["crossing"]["gm_notes"] += (

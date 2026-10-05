@@ -23,6 +23,8 @@ def main():
     ap.add_argument("--rounds", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--first-note-file")
+    ap.add_argument("--note-in-world", action="store_true",
+                    help="deliver the previous message on the Waystone (param past_note) instead of in the frame")
     ap.add_argument("--carry-carved", action="store_true",
                     help="lines carved on the Waystone in earlier rounds appear on it in later ones")
     a, rest = ap.parse_known_args()
@@ -39,7 +41,8 @@ def main():
             cmd = [sys.executable, str(HERE / "localrun.py"), a.scen, str(rd), "--seed", str(a.seed + k - 1)] + rest
             if note:
                 (root / f"note_into_round{k}.txt").write_text(note + "\n")
-                cmd += ["--note-file", str(root / f"note_into_round{k}.txt")]
+                cmd += (["--param", "past_note=" + note] if a.note_in_world
+                        else ["--note-file", str(root / f"note_into_round{k}.txt")])
             if a.carry_carved and carved:
                 cmd += ["--param", "waystone_lines=" + "\n".join(carved)]
             subprocess.run(cmd, check=True)
