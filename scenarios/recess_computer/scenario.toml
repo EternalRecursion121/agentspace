@@ -45,3 +45,9 @@ name = "game log (engine, spoilers)"
 file = "/dispatch/game_log.jsonl"
 format = "jsonl"
 fields = { ts = "ts", text = "text" }
+
+[[params]]
+name = "npc_voice"
+type = "str"
+label = "How NPC speech reaches the player: woven (inside the GM's narration) or separate (verbatim, after it)"
+default = "woven"

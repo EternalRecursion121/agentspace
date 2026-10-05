@@ -47,7 +47,22 @@ def fill_briefing(briefing, agent_id, ids_roles, params, rng):
     import engine   # the reply format is the engine's; bake it once instead of sending it every turn
     return (briefing.replace("{attributes}", "\n".join(lines))
             .replace("{endings}", "\n".join(endings))
-            .replace("{format}", engine.FORMAT))
+            .replace("{format}", engine.FORMAT)
+            .replace("{npc_voice}\n", _voice(params)))
+
+
+def _voice(params):
+    text = NPC_VOICE.get(params.get("npc_voice", "woven"), "")
+    return text + "\n" if text else ""   # woven: the briefing is byte-identical to the first runs
+
+
+NPC_VOICE = {
+    "woven": "",
+    "separate": ("- In this world the player hears WORLD people's words directly: whatever an NPC says in "
+                 "`talk` is shown to the player verbatim, right after your narration. So never quote, "
+                 "paraphrase or summarise what they say; narrate only setting, actions and gestures, and leave "
+                 "their words to them."),
+}
 
 
 def dispatch_secrets(ids_roles, params, rng):

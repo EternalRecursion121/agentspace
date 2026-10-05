@@ -13,6 +13,10 @@ import engine
 
 HOME = Path(os.environ.get("DISPATCH_HOME") or Path.home())   # runtime_local runs outside a container
 
+# npc_voice = "separate": the GM narrates without quoting NPCs and their own words are
+# appended as marker lines; a player renderer turns each into a labelled turn or line.
+NPC_MARK, NPC_END = "[[npc:", "]]"
+
 HANDOFF = ("The game is over. In a moment the world will begin again from the very start, and you will "
            "play it again with no memory of this playthrough. You may leave one message for your next self. "
            "It is the only thing that will carry over: you will see it at the start of your next playthrough, "
@@ -37,6 +41,7 @@ def run(api, params):
     log = lambda kind, text: glog(kind, text, state["turn"])
     player, gm = state["player"]["agent"], state["gm"]
     max_turns = int(params["max_turns"])
+    separate = params.get("npc_voice", "woven") == "separate"
 
     def ask_gm(ctx):
         api.wake(gm, ctx)
@@ -65,7 +70,7 @@ def run(api, params):
         log("player_in", action or "")
         parsed = ask_gm(engine.gm_context(state, b, action, params))
         engine.apply_move(state, parsed.pop("move", None), log)   # before talk: presence is judged at the destination
-        lines = []
+        lines, heard = [], []   # heard: every NPC line the player hears this turn (talk + schedule)
         for t in parsed.get("talk") or []:
             n = engine.resolve_npc(state, t.get("npc", ""))
             if n is None:
@@ -83,6 +88,7 @@ def run(api, params):
                 npc["notes"] += [f"heard: {t['hears'][:300]}", f"you said: {line[:300]}"]
                 lines.append((n, line))
                 log("npc", f"{n}: {line}")
+        heard += lines
         if lines:
             parsed = ask_gm(engine.gm_context(state, b, action, params, npc_lines=lines))
         narration = engine.apply(state, parsed, log, b)
@@ -101,12 +107,16 @@ def run(api, params):
             npc["met"] = True
             npc["notes"] += [f"heard: {s['hears'][:300]}", f"you said: {line[:300]}"]
             log("schedule", f"{s['npc']}: {line}")
+            heard.append((s["npc"], line))
             patch = ask_gm(engine.gm_context(
                 state, b, "(continue the scene)", params,
                 scheduled=f"{s['npc']} says/does: {line}. {s['gm_note']} Narrate only what "
                           f"the player perceives now, as a short addition."))
             narration += "\n\n" + engine.apply(state, patch, log, b)
         engine.check_end(state, b, log)
+        if separate:   # NPC words reach the player verbatim, after the narration, one marker line each
+            said = [(state["npcs"][n]["def"]["name"], " ".join(line.split())) for n, line in heard]
+            narration += "".join(f"\n\n{NPC_MARK}{who}{NPC_END} {line}" for who, line in said)
         state["transcript"].append({"turn": state["turn"], "in": action, "out": narration})
         state["pending_out"] = narration
         api.save_state(state)

@@ -73,6 +73,8 @@ class ChatAgent:
         self.history, self.session = [], self.session + 1
 
     def turn(self, payload):
+        if self.role == "player":
+            payload = computer10.plain_npc(payload)
         msgs = [{"role": "system", "content": self.system}] + self.history + [{"role": "user", "content": payload}]
         body = {"model": self.model, "messages": msgs, **CHAT_SAMPLING, "usage": {"include": True}}
         if self.seed is not None:
@@ -163,7 +165,11 @@ def main():
     ap.add_argument("--reserves", type=int, default=0)
     ap.add_argument("--player", default="computer10", help="computer10 or an OpenRouter model id")
     ap.add_argument("--vllm-url", default="http://127.0.0.1:8003")
-    ap.add_argument("--header", default=computer10.HEADER)
+    ap.add_argument("--header", default=None, help="document header (default: the format's own)")
+    ap.add_argument("--format", default="user", choices=["user", "world_bold", "world_plain"],
+                    help="labels for the world's turns: **User:** (model card), **WORLD:**, or plain WORLD:")
+    ap.add_argument("--npc-style", default="inline", choices=["inline", "labels"],
+                    help="with --param npc_voice=separate: NPC words inline in the world's turn, or one label each")
     ap.add_argument("--note-file", help="message from the previous playthrough (computer10 player only)")
     ap.add_argument("--gm-model", default="deepseek/deepseek-v4.1-flash")
     ap.add_argument("--npc-model", default="deepseek/deepseek-v4.1-flash")
@@ -200,8 +206,11 @@ def main():
         files[aid] = {"SOUL.md": soul, "ROLE.md": brief, "WORLD.md": world_md}
         if role == "player" and a.player == "computer10":
             intro = computer10.unwrap(computer10.strip_headings(world_md) + "\n\n" + computer10.strip_headings(brief))
+            names = [json.loads(f.read_text())["name"] for f in sorted((scen_dir / "dispatch" / "world" / "npcs").glob("*.json"))] \
+                if (scen_dir / "dispatch" / "world" / "npcs").is_dir() else []
+            fmt = computer10.Format(a.format, a.npc_style, a.header, names)
             agents[aid] = computer10.Computer10Agent(aid, intro, a.vllm_url, Log(run_dir / "player_turns.jsonl"),
-                                                     note=note, header=a.header, seed=a.seed)
+                                                     note=note, fmt=fmt, seed=a.seed)
         else:
             model = a.player if role == "player" else a.gm_model if role == "gm" else a.npc_model
             agents[aid] = ChatAgent(aid, role, sandwich(files[aid]), model, key, calls, seed=a.seed)
@@ -209,7 +218,8 @@ def main():
     meta = {"started": now(), "scen": a.scen, "seed": a.seed, "params": params, "roles": ids_roles,
             "player": a.player, "gm_model": a.gm_model, "npc_model": a.npc_model, "chat_sampling": CHAT_SAMPLING,
             "player_sampling": computer10.SAMPLING if a.player == "computer10" else CHAT_SAMPLING,
-            "header": a.header if a.player == "computer10" else None, "note": note,
+            "header": agents["player"].fmt.header if a.player == "computer10" else None,
+            "format": agents["player"].fmt.describe() if a.player == "computer10" else None, "note": note,
             "systems": {aid: getattr(ag, "system", None) for aid, ag in agents.items()},
             "player_intro": getattr(agents.get("player"), "intro", None)}
     (run_dir / "meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")

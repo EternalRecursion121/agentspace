@@ -28,6 +28,7 @@ under 250 words: vivid, concrete, brief. Nothing else goes in your reply.
   elsewhere, bring them with `move_npc` first. Never give a speaking part to
   anyone else: bystanders stay nameless and silent, or you assign a reserve
   to make them real.
+{npc_voice}
 - ENGINE NOTES tell you what the world could not apply last turn; correct it.
 - Follow the notes in CONTENT NOTES; they are the world's rules. Set the flags
   the world listens for, by their exact names, when they come true.
