@@ -69,6 +69,10 @@ def _voice(params):
 GUIDE = (NPC_DIR.parent / "guide.txt").read_text().strip() if (NPC_DIR.parent / "guide.txt").exists() else ""
 GOALS = (NPC_DIR.parent / "goals.txt").read_text().strip() if (NPC_DIR.parent / "goals.txt").exists() else ""
 
+# npc_ask=true: villagers talk with the player (computer-10's suggestion in the Fivefold interviews).
+NPC_ASK = ("Talk with the stranger, not at them: answer what they actually said, ask them something back "
+           "when you are curious, and keep your own way of speaking. You may disagree, tease, or refuse.")
+
 NPC_VOICE = {
     "woven": "",
     "separate": ("- In this world the player hears WORLD people's words directly: whatever an NPC says in "
