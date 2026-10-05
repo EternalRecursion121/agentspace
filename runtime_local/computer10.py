@@ -59,7 +59,10 @@ class Format:
                      else ["\n\n**"] if bold else ["\n\nWORLD:", "\n\nModel C:", "\n\nUser:", "\n\n**"])
         alt = "|".join(re.escape(n) for n in sorted(names, key=len, reverse=True))
         # bold labels count anywhere; plain ones only at the start of a line
-        self.label_re = re.compile(rf"\*\*(?:{alt})\s*:\*\*|(?m:^[ \t]*(?:{alt})\s*:)")
+        # ...and with npc_voice=separate inline, a line opening `Name —` is a villager speaking
+        npcs = "|".join(re.escape(n) for n in sorted(set(npc_names) | {n.split()[0] for n in npc_names}, key=len, reverse=True))
+        inline = rf"|(?m:^[ \t]*(?:{npcs}) \u2014)" if npcs else ""
+        self.label_re = re.compile(rf"\*\*(?:{alt})\s*:\*\*|(?m:^[ \t]*(?:{alt})\s*:){inline}")
 
     def describe(self):
         return {"style": self.style, "npc": self.npc, "world": self.world, "model": self.model, "header": self.header}
