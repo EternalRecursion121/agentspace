@@ -128,7 +128,8 @@ class Computer10Agent:
         self.log({"agent": self.id, "kind": "player_turn", "n": self.n, "payload": payload,
                   "prompt": prompt, "prompt_no_note": prompt_no_note, "has_note": bool(self.note),
                   "completion": choice["text"], "action": action, "wrote_other_side": other_side,
-                  "finish_reason": choice.get("finish_reason"), "usage": out.get("usage"),
+                  "finish_reason": choice.get("finish_reason"), "stop_reason": choice.get("stop_reason"),
+                  "usage": out.get("usage"),
                   "dropped_turns": self.drop, "header": self.header, "sampling": SAMPLING,
                   "seed": None if self.seed is None else self.seed * 1000 + self.n})
         self.turns.append((payload, action))
