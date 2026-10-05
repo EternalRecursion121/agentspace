@@ -43,6 +43,8 @@ def fill_briefing(briefing, agent_id, ids_roles, params, rng):
         return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + (" " + GOALS if goals else "") + "\n"
     if ids_roles[agent_id] != "gm":
         return briefing
+    if params.get("gm_prompt", "v1") == "v2":   # trainable-narration prompt (A/B'd against v1, see recess/README.md)
+        briefing = (NPC_DIR.parent.parent.parent / "roles" / "gm_v2.md").read_text()
     world = NPC_DIR.parent
     desc = json.loads((world / "attributes.json").read_text())
     lines = [f"- {a}: {desc.get(a, '(no description)')}" for a in _split(params["attributes"])]

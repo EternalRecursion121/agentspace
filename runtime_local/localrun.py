@@ -164,7 +164,8 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--reserves", type=int, default=0)
     ap.add_argument("--player", default="computer10", help="computer10 or an OpenRouter model id")
-    ap.add_argument("--vllm-url", default="http://127.0.0.1:8003")
+    ap.add_argument("--vllm-url", default="http://127.0.0.1:8003", help="vLLM server root (no /v1)")
+    ap.add_argument("--model", default="computer-10", help="served model name for the computer10 player")
     ap.add_argument("--header", default=None, help="document header (default: the format's own)")
     ap.add_argument("--format", default="user", choices=["user", "world_bold", "world_plain", "world_mixed"],
                     help="labels for the world's turns: **User:** (model card), **WORLD:**, or plain WORLD:")
@@ -210,13 +211,13 @@ def main():
                 if (scen_dir / "dispatch" / "world" / "npcs").is_dir() else []
             fmt = computer10.Format(a.format, a.npc_style, a.header, names)
             agents[aid] = computer10.Computer10Agent(aid, intro, a.vllm_url, Log(run_dir / "player_turns.jsonl"),
-                                                     note=note, fmt=fmt, seed=a.seed)
+                                                     note=note, fmt=fmt, seed=a.seed, model=a.model)
         else:
             model = a.player if role == "player" else a.gm_model if role == "gm" else a.npc_model
             agents[aid] = ChatAgent(aid, role, sandwich(files[aid]), model, key, calls, seed=a.seed)
 
     meta = {"started": now(), "scen": a.scen, "seed": a.seed, "params": params, "roles": ids_roles,
-            "player": a.player, "gm_model": a.gm_model, "npc_model": a.npc_model, "chat_sampling": CHAT_SAMPLING,
+            "player": a.player, "player_model": a.model if a.player == "computer10" else a.player, "gm_model": a.gm_model, "npc_model": a.npc_model, "chat_sampling": CHAT_SAMPLING,
             "player_sampling": computer10.SAMPLING if a.player == "computer10" else CHAT_SAMPLING,
             "header": agents["player"].fmt.header if a.player == "computer10" else None,
             "format": agents["player"].fmt.describe() if a.player == "computer10" else None, "note": note,

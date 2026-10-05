@@ -93,3 +93,9 @@ name = "past_note"
 type = "str"
 label = "The previous playthrough's message, placed on the Waystone in the player's own hand (in-world note)"
 default = ""
+
+[[params]]
+name = "gm_prompt"
+type = "str"
+label = "GM briefing: v1 (original recess) or v2 (concrete, varied, in-world narration fit to learn from)"
+default = "v1"
