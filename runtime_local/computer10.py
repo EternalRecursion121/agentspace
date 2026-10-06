@@ -99,12 +99,20 @@ def note_block(note):
     return f"{NOTE_INTRO}\n\n{quoted}"
 
 
-def render(intro, turns, payload, note=None, fmt=None):
+def poem_block(poem):
+    """A poem read to Computer before play (context only, never a training target)."""
+    return (f"Before the game begins, here is a poem from your reading list, {poem['title']} by {poem['author']}:\n\n"
+            f"{poem['text'].strip()}")
+
+
+def render(intro, turns, payload, note=None, fmt=None, poem=None):
     """The full document ending at the model label. `turns` = [(world_payload, reply)]
     already played; `payload` is the new world turn."""
     fmt = fmt or Format()
     users = [u for u, _ in turns] + [payload]
     first = intro + "\n\n" + users[0]
+    if poem:
+        first = poem_block(poem) + "\n\n" + first
     if note:
         first = note_block(note) + "\n\n" + first
     users[0] = first
@@ -129,9 +137,10 @@ class Computer10Agent:
     """Drop-in for a plain-mode Pi agent: turn(payload) -> reply text."""
 
     def __init__(self, agent_id, intro, url, log, note=None, fmt=None, model="computer-10",
-                 seed=None, max_prompt_tokens=72000):
+                 seed=None, max_prompt_tokens=72000, poem=None):
         self.id, self.intro, self.url, self.log = agent_id, intro, url.rstrip("/"), log
         self.note, self.fmt, self.model, self.seed = note, fmt or Format(), model, seed
+        self.poem = poem
         self.max_prompt_tokens = max_prompt_tokens
         self.turns, self.n, self.drop = [], 0, 0
 
@@ -161,7 +170,7 @@ class Computer10Agent:
     def turn(self, payload):
         while True:   # on overflow keep the opening turn (intro, note) and drop the oldest after it
             turns = self.turns[:1] + self.turns[1 + self.drop:]
-            prompt = render(self.intro, turns, payload, self.note, self.fmt)
+            prompt = render(self.intro, turns, payload, self.note, self.fmt, self.poem)
             try:
                 out = self._complete(prompt)
                 break
@@ -169,7 +178,7 @@ class Computer10Agent:
                 if len(turns) <= 4:
                     raise
                 self.drop += 1
-        prompt_no_note = render(self.intro, turns, payload, None, self.fmt) if self.note else prompt
+        prompt_no_note = render(self.intro, turns, payload, None, self.fmt, self.poem) if self.note else prompt
         choice = out["choices"][0]
         action, other_side = parse_action(choice["text"], self.fmt)
         self.log({"agent": self.id, "kind": "player_turn", "n": self.n, "payload": payload,
@@ -178,7 +187,7 @@ class Computer10Agent:
                   "finish_reason": choice.get("finish_reason"), "stop_reason": choice.get("stop_reason"),
                   "usage": out.get("usage"),
                   "dropped_turns": self.drop, "header": self.fmt.header, "labels": self.fmt.describe(),
-                  "npc_lines": NPC_MARK.findall(payload), "sampling": {**SAMPLING, "stop": self.fmt.stop},
+                  "npc_lines": NPC_MARK.findall(payload), "poem": (self.poem or {}).get("file"), "sampling": {**SAMPLING, "stop": self.fmt.stop},
                   "seed": None if self.seed is None else self.seed * 1000 + self.n})
         self.turns.append((payload, action))
         self.n += 1

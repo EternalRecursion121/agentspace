@@ -171,6 +171,7 @@ def main():
                     help="labels for the world's turns: **User:** (model card), **WORLD:**, or plain WORLD:")
     ap.add_argument("--npc-style", default="inline", choices=["inline", "labels"],
                     help="with --param npc_voice=separate: NPC words inline in the world's turn, or one label each")
+    ap.add_argument("--poem-file", help="a poem read to the computer10 player before play: title line, author line, blank, text")
     ap.add_argument("--note-file", help="message from the previous playthrough (computer10 player only)")
     ap.add_argument("--gm-model", default="deepseek/deepseek-v4.1-flash")
     ap.add_argument("--npc-model", default="deepseek/deepseek-v4.1-flash")
@@ -199,6 +200,10 @@ def main():
     soul = (REPO / "personas" / "blank.md").read_text()   # zookeeper's DEFAULT_PERSONA
     calls = Log(run_dir / "calls.jsonl")
     note = Path(a.note_file).read_text().strip() if a.note_file else None
+    poem = None
+    if a.poem_file:
+        title, author, text = Path(a.poem_file).read_text().split("\n", 2)
+        poem = {"file": str(a.poem_file), "title": title.strip(), "author": author.strip(), "text": text.strip()}
     agents, files = {}, {}
     for aid, role in ids_roles.items():
         brief = (scen_dir / "roles" / f"{role}.md").read_text()
@@ -211,7 +216,7 @@ def main():
                 if (scen_dir / "dispatch" / "world" / "npcs").is_dir() else []
             fmt = computer10.Format(a.format, a.npc_style, a.header, names)
             agents[aid] = computer10.Computer10Agent(aid, intro, a.vllm_url, Log(run_dir / "player_turns.jsonl"),
-                                                     note=note, fmt=fmt, seed=a.seed, model=a.model)
+                                                     note=note, fmt=fmt, seed=a.seed, model=a.model, poem=poem)
         else:
             model = a.player if role == "player" else a.gm_model if role == "gm" else a.npc_model
             agents[aid] = ChatAgent(aid, role, sandwich(files[aid]), model, key, calls, seed=a.seed)
@@ -221,6 +226,7 @@ def main():
             "player_sampling": computer10.SAMPLING if a.player == "computer10" else CHAT_SAMPLING,
             "header": agents["player"].fmt.header if a.player == "computer10" else None,
             "format": agents["player"].fmt.describe() if a.player == "computer10" else None, "note": note,
+            "poem": poem,
             "systems": {aid: getattr(ag, "system", None) for aid, ag in agents.items()},
             "player_intro": getattr(agents.get("player"), "intro", None)}
     (run_dir / "meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n")
