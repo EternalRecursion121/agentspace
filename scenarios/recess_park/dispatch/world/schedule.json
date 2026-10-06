@@ -1,0 +1,22 @@
+[
+ {
+  "turn": 6,
+  "npc": "knight",
+  "with": "robot",
+  "hears": "You and Unit Seven are in the long queue for the roller coaster, which terrifies you, and Unit Seven has just asked you whether you are having fun. The stranger is in the queue just behind you. Answer Unit Seven.",
+  "gm_note": "Sir Bramble and Unit Seven talk in the coaster queue (move both to the player's location)."
+ },
+ {
+  "turn": 16,
+  "npc": "alien",
+  "with": "wizard",
+  "hears": "You have found Mirelle the wizard and want to tell her what you saw past the fence from the big wheel, and ask if it is magic. The stranger is with you. Tell her.",
+  "gm_note": "Qee and Mirelle talk about what is past the fence (move both to the player's location)."
+ },
+ {
+  "turn": 28,
+  "npc": "gnome",
+  "hears": "The park is closing for the night: lights are going off ride by ride and a bell is ringing. You have come to find the stranger, because someone has finally beaten your high score, or nearly, and you want a rematch before closing. Say so.",
+  "gm_note": "Evening: the park begins to close, lights going off ride by ride (move Tobble to the player's location)."
+ }
+]

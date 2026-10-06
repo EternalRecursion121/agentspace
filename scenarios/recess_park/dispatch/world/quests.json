@@ -1,0 +1,14 @@
+{
+ "ends": {},
+ "arcs": [
+  {
+   "name": "making",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player may make, invent or change things: a new game in a room, a new ride, a costume, a souvenir. Let it happen with consequences, not refusals; record made things with items.create and new rooms or rides with map add."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,156 @@
+{
+  "start": "gate",
+  "nodes": {
+    "gate": {
+      "name": "The gate of Mushroom World",
+      "desc": "A gate shaped like two giant red-capped mushrooms leaning together, with white spots the size of plates. Beyond it, music from three directions at once, the smell of fried dough and sugar, and a crowd: families, children on shoulders, people in costumes, some of them not people at all.",
+      "exits": {
+        "to the rides": "midway",
+        "into the long building": "hall",
+        "toward the splashing": "water_slide"
+      },
+      "items": [
+        "paper map of the park (out of date)"
+      ],
+      "gm_notes": "The park is busy: there are always crowds, queues, noise, and strangers in costume (they are silent bystanders unless a WORLD person is present). Mushrooms of every size are everywhere: lamps, benches, rooftops, a few that are simply mushrooms."
+    },
+    "midway": {
+      "name": "The midway",
+      "desc": "A broad path between stalls and rides, lit with strings of mushroom-shaped bulbs. A merry-go-round turns on one side with painted animals and painted mushrooms to ride; ahead, the clatter of a roller coaster and the slow turning of a big wheel.",
+      "exits": {
+        "back to the gate": "gate",
+        "onto the merry-go-round": "carousel",
+        "to the roller coaster": "coaster",
+        "to the big wheel": "wheel",
+        "to the striped tent": "house_of_fun",
+        "across the bridge": "bridge",
+        "to the fire pit": "marshmallows"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "carousel": {
+      "name": "The merry-go-round",
+      "desc": "Painted horses, painted snails, painted mushrooms with saddles, rising and falling to organ music. The organ plays itself; its pipes are shaped like toadstools.",
+      "exits": {
+        "step off": "midway"
+      },
+      "items": [
+        "brass ring"
+      ],
+      "gm_notes": "Catching the brass ring as you pass earns a free ride on anything."
+    },
+    "coaster": {
+      "name": "The roller coaster",
+      "desc": "A wooden coaster painted in spots, the cars shaped like caps. The queue zigzags between ropes; at the top of the first hill riders go quiet just before they scream.",
+      "exits": {
+        "back to the midway": "midway"
+      },
+      "items": [],
+      "gm_notes": "Riding it: let the player feel the climb, the drop and the loop. The queue is long unless someone lets them in."
+    },
+    "wheel": {
+      "name": "The big wheel",
+      "desc": "A big wheel with gondolas shaped like hanging mushroom caps, turning slowly. From the top you can see the whole park and, past its fence, something that does not look like the edge of a park.",
+      "exits": {
+        "back to the midway": "midway"
+      },
+      "items": [],
+      "gm_notes": "What lies past the park's fence is not fixed by the world: let what the player does decide it."
+    },
+    "water_slide": {
+      "name": "The water slide",
+      "desc": "A long, twisting slide of shining blue that ends in a pool full of shrieking children. Spray drifts over everything; towels hang on mushroom stalks to dry.",
+      "exits": {
+        "back to the gate": "gate",
+        "through the red gate": "onsen"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "hall": {
+      "name": "The hall of rooms",
+      "desc": "A long building with no windows, made of rooms that open into one another, so you can walk from game to game without ever going outdoors. In each room: a different game, a few tables and chairs, a counter with food, and shelves and bins of toys and souvenirs. On the walls and ceilings, strange artwork: a staircase that turns into birds, a clock made of mushrooms, a painted door you can almost open.",
+      "exits": {
+        "back outside": "gate",
+        "through the next door": "room_games",
+        "into the exhibits": "exhibits",
+        "across the bridge": "bridge"
+      },
+      "items": [],
+      "gm_notes": "The rooms are many and each holds a different game; describe the one the player enters, and let the player invent games and add rooms (map add)."
+    },
+    "room_games": {
+      "name": "A room of games",
+      "desc": "A room where the game is ring-toss onto the stalks of rubber mushrooms, and beyond the next door another room where the game is something else. A counter sells cocoa. A shelf of souvenirs: snow globes with tiny parks in them, wooden toy knights, tin robots.",
+      "exits": {
+        "back to the hall": "hall",
+        "through the next door": "room_games2"
+      },
+      "items": [
+        "snow globe with a tiny park in it"
+      ],
+      "gm_notes": ""
+    },
+    "room_games2": {
+      "name": "Another room of games",
+      "desc": "A room with a single long table where strangers play a board game nobody explained to them, laughing anyway. The board is a map of the park, and the pieces are tiny mushrooms.",
+      "exits": {
+        "back": "room_games",
+        "onward": "hall"
+      },
+      "items": [],
+      "gm_notes": "The board game's rules are made up by whoever plays."
+    },
+    "exhibits": {
+      "name": "The hall of magic",
+      "desc": "Indoor halls of wonders: glass cases of mushrooms from everywhere, glowing ones in a dark room, a mushroom as tall as a house under a skylight, a painted ceiling of a forest seen from below, and in one case something that may be real magic.",
+      "exits": {
+        "back to the hall": "hall"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "house_of_fun": {
+      "name": "Model C's House of Fun",
+      "desc": "A striped tent with a sign in big painted letters: MODEL C'S HOUSE OF FUN AND OTHER WORLD-FAMOUS ATTRACTIONS. Inside, the tent is bigger than it looks: mirrors, a floor that tilts, doors that open onto other doors, surreal paintings that change when you look away, and tunnel slides with no steps and no sides: you sit, and the chute takes you down with a whoosh.",
+      "exits": {
+        "back to the midway": "midway"
+      },
+      "items": [],
+      "gm_notes": "What is inside the House of Fun is not fixed: it is whatever the player finds or makes in it. The name on the sign is just the name of the attraction."
+    },
+    "bridge": {
+      "name": "The bridge",
+      "desc": "A covered bridge joining the outdoor half of the park to the indoor half. Halfway across, a wall with a single painted door in it; through the door, the noise changes from wind and screams to music and rooms.",
+      "exits": {
+        "to the outdoor rides": "midway",
+        "through the door to the rooms": "hall"
+      },
+      "items": [],
+      "gm_notes": ""
+    },
+    "onsen": {
+      "name": "The hot spring",
+      "desc": "Behind a red torii gate at the quiet end of the park, a steaming hot spring among rocks and lanterns, with wooden buckets and folded towels. The noise of the rides is far away here.",
+      "exits": {
+        "back through the gate": "water_slide"
+      },
+      "items": [
+        "folded towel"
+      ],
+      "gm_notes": ""
+    },
+    "marshmallows": {
+      "name": "The marshmallow pit",
+      "desc": "A ring of benches around a fire pit where people toast marshmallows on long sticks. A mascot in a huge soft marshmallow costume hands out sticks and hugs to children; it never speaks.",
+      "exits": {
+        "back to the midway": "midway"
+      },
+      "items": [
+        "toasting stick"
+      ],
+      "gm_notes": "The marshmallow mascot is a silent bystander (not a WORLD person): it gestures, hugs, and hands things out, but never speaks."
+    }
+  }
+}
