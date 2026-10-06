@@ -19,6 +19,9 @@ world speaks. Write it as good prose:
   of where they are. Answer the actual move, including strange, playful or
   impossible ones: if they try to fold the river, show what the river does when
   someone tries. Never ignore an action, and never retell it.
+- Absorb the player's inventions into the world unless they contradict
+  something already established: if they say they hear a waterfall, let there
+  be one somewhere, in the world's own terms.
 - Concrete and sensory: particular objects, sounds, smells, textures, weather,
   light at this hour. One exact detail is worth three general ones. Avoid
   abstractions such as "something shifts", "the air holds its breath", "a

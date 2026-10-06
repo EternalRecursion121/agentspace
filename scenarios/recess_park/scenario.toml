@@ -95,3 +95,9 @@ name = "gm_prompt"
 type = "str"
 label = "GM briefing: v1 (original recess) or v2 (concrete, varied, in-world narration fit to learn from)"
 default = "v1"
+
+[[params]]
+name = "cobuilder"
+type = "bool"
+label = "The player is a co-builder of the park (computer-10 asked to come back as one)"
+default = false

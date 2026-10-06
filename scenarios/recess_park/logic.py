@@ -40,7 +40,10 @@ def fill_briefing(briefing, agent_id, ids_roles, params, rng):
         return briefing.rstrip() + "\n\n" + NPC_ASK + "\n"
     if ids_roles[agent_id] == "player" and str(params.get("guide", "false")).lower() in ("1", "true", "yes", "on"):
         goals = str(params.get("goals", "false")).lower() in ("1", "true", "yes", "on")
-        return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + (" " + GOALS if goals else "") + "\n"
+        co = (" You are also a co-builder of the park: you can build, add and change rides, rooms, games and "
+              "attractions by doing it, and the park and its people will respond."
+              if str(params.get("cobuilder", "false")).lower() in ("1", "true", "yes", "on") else "")
+        return briefing.rstrip() + "\n\n" + GUIDE.format(max_turns=params["max_turns"]) + co + (" " + GOALS if goals else "") + "\n"
     if ids_roles[agent_id] != "gm":
         return briefing
     if params.get("gm_prompt", "v1") == "v2":   # trainable-narration prompt (A/B'd against v1, see recess/README.md)

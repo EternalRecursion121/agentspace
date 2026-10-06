@@ -40,6 +40,12 @@ def run(api, params):
     state = api.load_state(default=None)
     if state is None:
         state = engine.new_state(b, roles, params, random.getrandbits(32))
+        if _truthy(params.get("cobuilder", False)):   # computer-10 asked to come back "as a 'co-builder'"
+            for node in state["map"].values():
+                node["gm_notes"] = (node.get("gm_notes") or "") + (
+                    " The player is a co-builder of this park: when they build, add or change a ride, room, game or "
+                    "attraction by their own action, it becomes real (map add for a new place, items.create for a thing), "
+                    "shaped by the park and its people, who may help, object or join in.")
         past = str(params.get("past_note") or "").strip()
         if past:   # the previous playthrough's message, delivered inside the world rather than in the frame
             state["map"]["crossing"]["gm_notes"] += (
