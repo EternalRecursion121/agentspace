@@ -1,0 +1,23 @@
+{
+ "ends": {},
+ "arcs": [
+  {
+   "name": "recurrence",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player keeps their memories when things recur. Others may or may not. Let the player make and change things; what they change recurs too, slightly altered. Record made things with items.create."
+    }
+   ]
+  },
+  {
+   "name": "decisions",
+   "gm_notes": [
+    {
+     "unlock": "always",
+     "text": "The player can change a decision at any time and go back to the same moment or place any number of times; but going back reaches something that only seems the same, and changing a decision changes how what happens next is experienced more than what happens. Each turn of the loop poses a small decision, like a test, and the next loop differs according to what the player chose."
+    }
+   ]
+  }
+ ]
+}

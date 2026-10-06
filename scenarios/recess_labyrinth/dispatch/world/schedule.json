@@ -1,0 +1,21 @@
+[
+ {
+  "turn": 8,
+  "npc": "looper",
+  "hears": "The loop is turning. Everything is about to happen again. Tell the stranger, in your way.",
+  "gm_note": "The loop turns: the player finds themselves back at the transformation gate, standing in the worn groove. Everything is as it was, except for one small detectable difference (choose one, and keep anything the player made, slightly altered). The player keeps their memories. Move the player to the transformation gate with move, and the Looper there too. Pose the player one small decision (a test) as the loop turns; the next loop will differ according to it."
+ },
+ {
+  "turn": 14,
+  "npc": "returner",
+  "with": "clerk",
+  "hears": "You have come to the archive with the stranger to ask the Clerk for your own drawer: you want to know what you decided last time. Ask the Clerk.",
+  "gm_note": "Ilse and the Clerk talk in the archive about Ilse's drawer (move all three there)."
+ },
+ {
+  "turn": 22,
+  "npc": "looper",
+  "hears": "The loop is turning again. Tell the stranger, in your way, and ask them what they would do differently this time.",
+  "gm_note": "The loop turns again: back at the transformation gate, one small difference, the player's memories intact (move the player and the Looper there). Pose the player one small decision (a test) as the loop turns; the next loop will differ according to it."
+ }
+]

@@ -1,0 +1,109 @@
+{
+  "start": "threshold",
+  "nodes": {
+    "threshold": {
+      "name": "The transformation gate",
+      "desc": "A round chamber of pale, faintly warm stone with a single arched gate, and through it corridors that curve gently inward. In the floor, worn smooth, a groove where countless feet have stood exactly where yours are standing now. A low hum in the walls, like a note held a very long time. Each time you pass through the gate, something in you or around you is a little changed.",
+      "exits": {
+        "inward": "corridor",
+        "to the mirrors": "gallery",
+        "to the side door": "archive"
+      },
+      "items": [],
+      "gm_notes": "The labyrinth has no beginning and no end, and every path leads inward toward a centre that keeps extending. Everything here has happened before and will happen again: each time something recurs it is an almost perfect copy, with one small, detectable difference."
+    },
+    "corridor": {
+      "name": "The inward corridor",
+      "desc": "A corridor that curves always to the left, so slightly that you only notice when you look back and cannot see where you came in. Marks on the wall at shoulder height: tally marks, thousands of them, some in a hand that looks like yours. Every few steps, a small object set in a niche, each saying something about the stretch of corridor it sits in: a key with no teeth, a clock face with no hands, a shell that hums.",
+      "exits": {
+        "back to the threshold": "threshold",
+        "onward, inward": "recurring_room",
+        "down the spiral": "spiral"
+      },
+      "items": [],
+      "gm_notes": "The tally marks are left by everyone who has passed. Making a mark is possible."
+    },
+    "recurring_room": {
+      "name": "The recurring room",
+      "desc": "A small square room with a table, a chair, and on the table an hourglass whose sand falls up and down at once, and a door on each side. Each door opens onto this same room, the hourglass turned a little differently.",
+      "exits": {
+        "back along the corridor": "corridor",
+        "through any door": "recurring_room_again"
+      },
+      "items": [
+        "hourglass that runs both ways"
+      ],
+      "gm_notes": "Going through any door brings the player into this room again, with one small difference each time (the hourglass turned, the chair moved, a grain of sand stuck in the neck). What the player changes in the room stays changed in the next repetition, slightly altered."
+    },
+    "recurring_room_again": {
+      "name": "The recurring room, again",
+      "desc": "The same small square room: the table, the chair, the hourglass, a door on each side. Something is different. It takes a moment to find what.",
+      "exits": {
+        "through any door": "recurring_room",
+        "back to the corridor": "corridor"
+      },
+      "items": [],
+      "gm_notes": "See the recurring room. Describe precisely one difference."
+    },
+    "gallery": {
+      "name": "The gallery of mirrors",
+      "desc": "A long hall lined with mirrors that do not show you: they show the labyrinth from other places in it, as if it were looking at itself. In some, a figure walks a corridor and turns a corner a moment before you can see its face.",
+      "exits": {
+        "back to the threshold": "threshold",
+        "into the deepest mirror": "echoes"
+      },
+      "items": [],
+      "gm_notes": "The labyrinth consists of many mirror images of itself. The figure in the mirrors may be the player, earlier or later; let what the player does decide it."
+    },
+    "echoes": {
+      "name": "The hall of echoes",
+      "desc": "A tall hall where every sound comes back a moment later, slightly changed: a footstep returns as two, a word returns as a different word that means almost the same.",
+      "exits": {
+        "back through the mirror": "gallery",
+        "inward": "spiral"
+      },
+      "items": [],
+      "gm_notes": "The Looper is usually here."
+    },
+    "spiral": {
+      "name": "The spiral stair",
+      "desc": "A stair that winds inward and downward at once, around a core of humming stone. Every turn of it looks the same, except for small things left on the steps by those who came before: a button, a folded paper, a pebble.",
+      "exits": {
+        "up and out": "corridor",
+        "down and in": "centre"
+      },
+      "items": [
+        "folded paper"
+      ],
+      "gm_notes": "What is written on the folded paper is not fixed; let what the player does decide it."
+    },
+    "centre": {
+      "name": "The centre",
+      "desc": "The centre is not a room but a direction: the stair ends in a space that keeps extending inward the more you look, lit from nowhere, quiet except for the hum. On the floor near your feet, a ring of small stones laid by someone, and a gap in the ring.",
+      "exits": {
+        "back up the stair": "spiral",
+        "loop back out": "outer_loop"
+      },
+      "items": [],
+      "gm_notes": "The centre is never reached, only approached. Laying something in the gap of the ring is possible."
+    },
+    "archive": {
+      "name": "The archive of decisions",
+      "desc": "A low room of drawers, floor to ceiling, each labelled with a moment. Inside each drawer, a card describing a decision someone made there, and sometimes a second card describing the decision they did not make.",
+      "exits": {
+        "back to the threshold": "threshold"
+      },
+      "items": [],
+      "gm_notes": "The Clerk keeps the archive. Here one can remember past decisions and change what one decides this time, and even remember decisions one never made. The player's own drawer exists."
+    },
+    "outer_loop": {
+      "name": "The outer loop",
+      "desc": "A wide, slow corridor along the outside of everything, with windows onto stars that do not move. It leads back, eventually, to the threshold.",
+      "exits": {
+        "onward, back to the threshold": "threshold"
+      },
+      "items": [],
+      "gm_notes": "One can loop through the labyrinth, within it, or from outside it, but one always loops back out eventually, and back in."
+    }
+  }
+}
